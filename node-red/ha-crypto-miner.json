@@ -1,0 +1,712 @@
+[
+  {
+    "id": "1bc41ee3.2207b1",
+    "type": "tab",
+    "label": "eth_stats",
+    "disabled": false,
+    "info": "https://api.ethermine.org/miner/[YOUR-WALLET-ADDRESS]/currentStats\n\n{\n  \"status\": \"OK\",\n  \"data\": {\n    \"time\": 1610055600,\n    \"lastSeen\": 1610055556,\n    \"reportedHashrate\": 63715162,\n    \"currentHashrate\": 61111111.11111112,\n    \"validShares\": 55,\n    \"invalidShares\": 0,\n    \"staleShares\": 0,\n    \"averageHashrate\": 55274691.358024694,\n    \"activeWorkers\": 2,\n    \"unpaid\": 4445230193822722,\n    \"unconfirmed\": null,\n    \"coinsPerMin\": 0.000002818538504344906,\n    \"usdPerMin\": 0.0034884487360576037,\n    \"btcPerMin\": 8.906581673729904e-8\n  }\n}"
+  },
+  {
+    "id": "f573b748.78dcd8",
+    "type": "http request",
+    "z": "1bc41ee3.2207b1",
+    "name": "ethminer-api",
+    "method": "GET",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://api.ethermine.org/miner/[YOUR-WALLET-ADDRESS]/currentStats",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 490,
+    "y": 380,
+    "wires": [
+      [
+        "ca356b60.5eed88",
+        "39af7d3f.68cbe2",
+        "ac287552.81f618",
+        "7c7b7258.b04acc",
+        "57a5dd0a.2febb4",
+        "da44a8f7.971cc8",
+        "f20a0353.aede9"
+      ]
+    ]
+  },
+  {
+    "id": "8f527061.b311",
+    "type": "inject",
+    "z": "1bc41ee3.2207b1",
+    "name": "5min",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "300",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 310,
+    "y": 380,
+    "wires": [
+      [
+        "f573b748.78dcd8",
+        "c32aac5.be94d5",
+        "62591110.c5a0c"
+      ]
+    ]
+  },
+  {
+    "id": "ca356b60.5eed88",
+    "type": "debug",
+    "z": "1bc41ee3.2207b1",
+    "name": "eth-api_dbg",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 490,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "5e291437.3e324c",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Rep Hash",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Reported Hash Rate"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:file-chart"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "MH/s"
+      }
+    ],
+    "state": "payload",
+    "stateType": "msg",
+    "attributes": [
+      {
+        "property": "friendly_name",
+        "value": "ETH Miner Reported Hash Rate",
+        "valueType": "str"
+      }
+    ],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 880,
+    "y": 200,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "15c5c774.a635a9",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Cur Hash",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Current Hash Rate"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:chart-timeline-variant-shimmer"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "MH/s"
+      }
+    ],
+    "state": "payload",
+    "stateType": "msg",
+    "attributes": [
+      {
+        "property": "friendly_name:",
+        "value": "ETH Miner Current Hash Rate",
+        "valueType": "str"
+      }
+    ],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "merge",
+    "x": 880,
+    "y": 260,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "b33bd4a9.eaf5f8",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Avg Hash",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Avg Hash"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:calculator"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "MH/s"
+      }
+    ],
+    "state": "payload",
+    "stateType": "msg",
+    "attributes": [
+      {
+        "property": "friendly_name:",
+        "value": "ETH Miner Avg Hash Rate",
+        "valueType": "str"
+      }
+    ],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 880,
+    "y": 380,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "39af7d3f.68cbe2",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Active Workers",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Active Workers"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:pickaxe"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": ""
+      }
+    ],
+    "state": "payload.data.activeWorkers",
+    "stateType": "msg",
+    "attributes": [],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 900,
+    "y": 320,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "fbd112e2.902b5",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Daily Revenue",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Daily Revenue"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:cash-multiple"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "$"
+      }
+    ],
+    "state": "payload",
+    "stateType": "msg",
+    "attributes": [],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 890,
+    "y": 440,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "f25d2729.bdccd8",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Last Seen",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Last Seen"
+      },
+      {
+        "property": "device_class",
+        "value": "timestamp"
+      },
+      {
+        "property": "icon",
+        "value": "mdi:update"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": ""
+      }
+    ],
+    "state": "payload",
+    "stateType": "msg",
+    "attributes": [],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 880,
+    "y": 560,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "c32aac5.be94d5",
+    "type": "moment",
+    "z": "1bc41ee3.2207b1",
+    "name": "",
+    "topic": "",
+    "input": "payload.data.lastSeen",
+    "inputType": "msg",
+    "inTz": "America/New_York",
+    "adjAmount": 0,
+    "adjType": "days",
+    "adjDir": "add",
+    "format": "",
+    "locale": "en",
+    "output": "payload",
+    "outputType": "msg",
+    "outTz": "America/New_York",
+    "x": 660,
+    "y": 560,
+    "wires": [
+      [
+        "f25d2729.bdccd8"
+      ]
+    ]
+  },
+  {
+    "id": "ac287552.81f618",
+    "type": "calculator",
+    "z": "1bc41ee3.2207b1",
+    "name": "rev_day",
+    "inputMsgField": "payload.data.usdPerMin",
+    "outputMsgField": "payload",
+    "operation": "mult",
+    "constant": "1440",
+    "round": true,
+    "decimals": "2",
+    "x": 700,
+    "y": 440,
+    "wires": [
+      [
+        "fbd112e2.902b5"
+      ]
+    ]
+  },
+  {
+    "id": "7c7b7258.b04acc",
+    "type": "calculator",
+    "z": "1bc41ee3.2207b1",
+    "name": "rept_hash",
+    "inputMsgField": "payload.data.reportedHashrate",
+    "outputMsgField": "payload",
+    "operation": "div",
+    "constant": "1000000",
+    "round": true,
+    "decimals": "2",
+    "x": 700,
+    "y": 200,
+    "wires": [
+      [
+        "5e291437.3e324c"
+      ]
+    ]
+  },
+  {
+    "id": "57a5dd0a.2febb4",
+    "type": "calculator",
+    "z": "1bc41ee3.2207b1",
+    "name": "act_hash",
+    "inputMsgField": "payload.data.currentHashrate",
+    "outputMsgField": "payload",
+    "operation": "div",
+    "constant": "1000000",
+    "round": true,
+    "decimals": "2",
+    "x": 700,
+    "y": 260,
+    "wires": [
+      [
+        "15c5c774.a635a9"
+      ]
+    ]
+  },
+  {
+    "id": "da44a8f7.971cc8",
+    "type": "calculator",
+    "z": "1bc41ee3.2207b1",
+    "name": "avg_hash",
+    "inputMsgField": "payload.data.averageHashrate",
+    "outputMsgField": "payload",
+    "operation": "div",
+    "constant": "1000000",
+    "round": true,
+    "decimals": "2",
+    "x": 700,
+    "y": 380,
+    "wires": [
+      [
+        "b33bd4a9.eaf5f8"
+      ]
+    ]
+  },
+  {
+    "id": "62591110.c5a0c",
+    "type": "http request",
+    "z": "1bc41ee3.2207b1",
+    "name": "ethplorer-api",
+    "method": "GET",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://api.ethplorer.io/getAddressInfo/[YOUR-WALLET-ADDRESS]?apiKey=[YOUR--KEY]",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 490,
+    "y": 620,
+    "wires": [
+      [
+        "aa6b559b.ea46d8"
+      ]
+    ],
+    "info": "Get balance in Etherium\n\n{\n  \"address\": \"[YOUR-WALLET-ADDRESS]\",\n  \"ETH\": {\n    \"balance\": 0.08167291213651814,\n    \"price\": {\n      \"rate\": 1161.3098575567544,\n      \"diff\": -3.84,\n      \"diff7d\": 55.54,\n      \"ts\": 1610083382,\n      \"marketCapUsd\": 132577581741.60683,\n      \"availableSupply\": 114162108.3115,\n      \"volume24h\": 44238534021.252754,\n      \"diff30d\": 105.85635758010218,\n      \"volDiff1\": 0.9530469695674384,\n      \"volDiff7\": 101.77645246396284,\n      \"volDiff30\": 20.6686934251356\n    }\n  },\n  \"countTxs\": 7\n}"
+  },
+  {
+    "id": "eec0c2db.abbf7",
+    "type": "http request",
+    "z": "1bc41ee3.2207b1",
+    "name": "cryptcom_api",
+    "method": "GET",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 500,
+    "y": 680,
+    "wires": [
+      [
+        "51241162.a4f27"
+      ]
+    ],
+    "info": "Get balance in Etherium\n\n{\n  \"address\": \"[YOUR-WALLET-ADDRESS]\",\n  \"ETH\": {\n    \"balance\": 0.08167291213651814,\n    \"price\": {\n      \"rate\": 1161.3098575567544,\n      \"diff\": -3.84,\n      \"diff7d\": 55.54,\n      \"ts\": 1610083382,\n      \"marketCapUsd\": 132577581741.60683,\n      \"availableSupply\": 114162108.3115,\n      \"volume24h\": 44238534021.252754,\n      \"diff30d\": 105.85635758010218,\n      \"volDiff1\": 0.9530469695674384,\n      \"volDiff7\": 101.77645246396284,\n      \"volDiff30\": 20.6686934251356\n    }\n  },\n  \"countTxs\": 7\n}"
+  },
+  {
+    "id": "aa6b559b.ea46d8",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "eth_bal",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": false,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Balance"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:wallet"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "ETH"
+      }
+    ],
+    "state": "payload.ETH.balance",
+    "stateType": "msg",
+    "attributes": [],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 840,
+    "y": 620,
+    "wires": [
+      [
+        "42cb54df.96219c"
+      ]
+    ]
+  },
+  {
+    "id": "deda1c33.5e018",
+    "type": "inject",
+    "z": "1bc41ee3.2207b1",
+    "name": "hourly",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "3600",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 300,
+    "y": 680,
+    "wires": [
+      [
+        "eec0c2db.abbf7"
+      ]
+    ]
+  },
+  {
+    "id": "51241162.a4f27",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "eth2usd",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": false,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH2USD Rate"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:currency-usd-circle-outline"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "ETH/USD"
+      }
+    ],
+    "state": "payload.USD",
+    "stateType": "msg",
+    "attributes": [],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 840,
+    "y": 680,
+    "wires": [
+      [
+        "fd09bf8a.84bfd"
+      ]
+    ]
+  },
+  {
+    "id": "42cb54df.96219c",
+    "type": "debug",
+    "z": "1bc41ee3.2207b1",
+    "name": "eth_bal_dbg",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 990,
+    "y": 620,
+    "wires": []
+  },
+  {
+    "id": "fd09bf8a.84bfd",
+    "type": "debug",
+    "z": "1bc41ee3.2207b1",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 990,
+    "y": 680,
+    "wires": []
+  },
+  {
+    "id": "abfe6254.4e4e2",
+    "type": "ha-entity",
+    "z": "1bc41ee3.2207b1",
+    "name": "ETH Miner Monthly Revenue",
+    "server": "3327106a.92cf6",
+    "version": 1,
+    "debugenabled": true,
+    "outputs": 1,
+    "entityType": "sensor",
+    "config": [
+      {
+        "property": "name",
+        "value": "ETH Miner Monthly Revenue"
+      },
+      {
+        "property": "device_class",
+        "value": ""
+      },
+      {
+        "property": "icon",
+        "value": "mdi:calendar"
+      },
+      {
+        "property": "unit_of_measurement",
+        "value": "$"
+      }
+    ],
+    "state": "payload",
+    "stateType": "msg",
+    "attributes": [],
+    "resend": true,
+    "outputLocation": "",
+    "outputLocationType": "none",
+    "inputOverride": "allow",
+    "x": 900,
+    "y": 500,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "f20a0353.aede9",
+    "type": "calculator",
+    "z": "1bc41ee3.2207b1",
+    "name": "rev_month",
+    "inputMsgField": "payload.data.usdPerMin",
+    "outputMsgField": "payload",
+    "operation": "mult",
+    "constant": "43200",
+    "round": true,
+    "decimals": "2",
+    "x": 690,
+    "y": 500,
+    "wires": [
+      [
+        "abfe6254.4e4e2"
+      ]
+    ]
+  },
+  {
+    "id": "3327106a.92cf6",
+    "type": "server",
+    "name": "Home Assistant",
+    "legacy": false,
+    "addon": true,
+    "rejectUnauthorizedCerts": true,
+    "ha_boolean": "y|yes|true|on|home|open",
+    "connectionDelay": true,
+    "cacheJson": true
+  }
+]
